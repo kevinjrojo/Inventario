@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Inventario de Herramientas</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1>Inventario</h1>
+
+    <form id="toolForm">
+      <input
+        type="text"
+        id="name"
+        placeholder="Nombre de la herramienta"
+        required
+      />
+      <input type="text" id="category" placeholder="Categoría" required />
+      <input
+        type="number"
+        id="quantity"
+        placeholder="Cantidad"
+        min="1"
+        required
+      />
+      <input type="text" id="ubication" placeholder="Ubicación" required />
+      <button type="submit">Agregar</button>
+    </form>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Elementro</th>
+          <th>Categoría</th>
+          <th>Cantidad</th>
+          <th>Ubicación</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+
+    <script src="script.js"></script>
+  </body>
+</html>
