@@ -13,10 +13,6 @@ body {
 
   background-color: #f2f2f2;
 }
-
-h1 {
-}
-
 form {
   background-color: #fff;
   padding: 20px 30px;
@@ -81,5 +77,52 @@ tr.editing {
   }
   100% {
     transform: scale(1);
+  }
+}
+
+/*Vista móvil*/
+
+@media (max-width: 768px) {
+  .table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  table {
+    min-width: 600px;
+  }
+  body {
+    justify-content: flex-start;
+    padding: 20px 10px;
+  }
+
+  form {
+    width: 100%;
+    max-width: 100%;
+    padding: 16px;
+  }
+
+  input,
+  button {
+    font-size: 16px;
+    padding: 10px;
+  }
+
+  table {
+    width: 100%;
+    margin-top: 30px;
+    font-size: 14px;
+  }
+
+  th,
+  td {
+    padding: 6px;
+  }
+
+  /* botones editar / borrar más cómodos */
+  .edit-btn,
+  .delete-btn {
+    padding: 6px 8px;
+    font-size: 16px;
   }
 }
