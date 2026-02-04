@@ -23,6 +23,11 @@ form {
   gap: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
+form.editing {
+  border: 2px solid #007bff; /* azul prolijo */
+  background-color: #eef2ff;
+  box-shadow: 0 0 10px rgba(79, 70, 229, 0.2);
+}
 
 input {
   padding: 8px;
@@ -42,9 +47,33 @@ button {
 button:hover {
   background-color: #0056b3;
 }
+#cancelEdit {
+  background-color: #d61e46;
+  color: white;
+}
+
+#cancelEdit:hover {
+  background-color: #bb062d;
+}
+
+#searchInput {
+  width: 100%;
+  max-width: 500px;
+  padding: 10px 14px;
+  margin: 30px 0 0;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  outline: none;
+}
+
+#searchInput:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(33, 22, 239, 0.2);
+}
 
 table {
-  margin-top: 50px;
+  margin-top: 30px;
   width: 80%;
   background-color: #fff;
   border-collapse: collapse;

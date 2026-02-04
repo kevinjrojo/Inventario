@@ -20,6 +20,8 @@
         required
       />
       <input type="text" id="category" placeholder="Categoría" required />
+      <input type="text" id="codigo" placeholder="Código" />
+
       <input
         type="number"
         id="quantity"
@@ -29,13 +31,20 @@
       />
       <input type="text" id="ubication" placeholder="Ubicación" required />
       <button type="submit">Agregar</button>
+      <button type="button" id="cancelEdit" hidden>Cancelar</button>
     </form>
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Buscar herramienta por nombre, código o categoría..."
+    />
 
     <table>
       <thead>
         <tr>
           <th>Elemento</th>
           <th>Categoría</th>
+          <th>Código</th>
           <th>Cantidad</th>
           <th>Ubicación</th>
           <th>Editar o borrar</th>
@@ -43,8 +52,7 @@
       </thead>
       <tbody id="tableBody"></tbody>
     </table>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    <script type="module" src="script.js"></script>
+    <script type="module" src="./js/main.js"></script>
   </body>
 </html>
