@@ -1,16 +1,24 @@
 import { getTools, addTool, updateTool, deleteTool } from "./toolsService.js";
 import { renderTable } from "./ui.js";
+import { filterTools } from "./searchTools.js";
 
 const form = document.getElementById("toolForm");
 const tableBody = document.getElementById("tableBody");
 const cancelBtn = document.getElementById("cancelEdit");
+const searchInput = document.getElementById("searchInput");
 
 let tools = [];
 let editId = null;
 
+function renderFilteredTools() {
+  const filteredTools = filterTools(tools, searchInput.value);
+  renderTable(filteredTools, tableBody);
+}
+
 async function loadTools() {
   tools = await getTools();
   renderTable(tools, tableBody);
+  renderFilteredTools();
 }
 
 loadTools();
@@ -33,7 +41,7 @@ form.addEventListener("submit", async (e) => {
     tools = tools.filter((t) => t.id !== editId);
     tools.unshift({ id: editId, ...tool });
 
-    renderTable(tools, tableBody);
+    renderFilteredTools();
 
     // ⬇️ SALIR DEL MODO EDICIÓN
     editId = null;
@@ -43,6 +51,7 @@ form.addEventListener("submit", async (e) => {
     form.querySelector("button[type='submit']").textContent = "Agregar";
   } else {
     await addTool(tool);
+    await loadTools();
   }
 
   form.reset();
@@ -84,6 +93,10 @@ tableBody.addEventListener("click", async (e) => {
 
     form.querySelector("input").focus();
   }
+});
+
+searchInput.addEventListener("input", () => {
+  renderFilteredTools();
 });
 
 cancelBtn.addEventListener("click", () => {
