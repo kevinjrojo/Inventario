@@ -9,7 +9,7 @@ export function renderTable(tools, tableBody) {
       <td>${tool.name}</td>
       <td>${tool.category}</td>
       <td>${tool.codigo || "-"}</td>
-      <td>${tool.quantity}</td>
+      <td>${tool.day}</td>
       <td>${tool.ubication || "-"}</td>
       <td>
         <button class="edit-btn" data-id="${tool.id}">

@@ -31,7 +31,7 @@ form.addEventListener("submit", async (e) => {
     name: form.name.value.trim(),
     category: form.category.value.trim(),
     codigo: form.codigo.value.trim(),
-    quantity: Number(form.quantity.value),
+    day: form.day.value.trim(),
     ubication: form.ubication.value.trim(),
   };
 
@@ -80,7 +80,7 @@ tableBody.addEventListener("click", async (e) => {
     form.codigo.value = tool.codigo || "";
     form.name.value = tool.name;
     form.category.value = tool.category;
-    form.quantity.value = tool.quantity;
+    form.day.value = tool.day;
     form.ubication.value = tool.ubication;
 
     editId = tool.id;
