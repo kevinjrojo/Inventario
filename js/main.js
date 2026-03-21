@@ -1,7 +1,13 @@
 import { getTools, addTool, updateTool, deleteTool } from "./toolsService.js";
+import { supabase } from "./supabaseClient.js";
 import { renderTable } from "./ui.js";
 import { filterTools } from "./searchTools.js";
 
+const loginForm = document.getElementById("loginForm");
+const authMessage = document.getElementById("authMessage");
+const inventorySection = document.getElementById("inventorySection");
+const sessionInfo = document.getElementById("sessionInfo");
+const logoutBtn = document.getElementById("logoutBtn");
 const form = document.getElementById("toolForm");
 const tableBody = document.getElementById("tableBody");
 const cancelBtn = document.getElementById("cancelEdit");
@@ -12,18 +18,106 @@ const downloadWordBtn = document.getElementById("downloadWordBtn");
 let tools = [];
 let editId = null;
 
+function showAuthMessage(message, isError = false) {
+  authMessage.textContent = message;
+  authMessage.classList.toggle("error", isError);
+}
+
+function updateViewBySession(session) {
+  const user = session?.user ?? null;
+
+  if (!user) {
+    inventorySection.hidden = true;
+    sessionInfo.textContent = "";
+    tableBody.innerHTML = "";
+    tools = [];
+    editId = null;
+    form.reset();
+    cancelBtn.hidden = true;
+    form.classList.remove("editing");
+    form.querySelector("button[type='submit']").textContent = "Agregar";
+    return;
+  }
+
+  inventorySection.hidden = false;
+  sessionInfo.textContent = `Sesión iniciada como: ${user.email}`;
+}
+
 function renderFilteredTools() {
   const filteredTools = filterTools(tools, searchInput.value);
   renderTable(filteredTools, tableBody);
 }
 
 async function loadTools() {
-  tools = await getTools();
-  renderTable(tools, tableBody);
-  renderFilteredTools();
+  try {
+    tools = await getTools();
+    renderTable(tools, tableBody);
+    renderFilteredTools();
+  } catch (error) {
+    console.error(error);
+    showAuthMessage(
+      `Sesión iniciada, pero no se pudo leer el inventario: ${error.message}`,
+      true,
+    );
+  }
 }
 
-loadTools();
+async function initializeAuth() {
+  const { data, error } = await supabase.auth.getSession();
+  if (error) {
+    showAuthMessage("No se pudo validar la sesión actual.", true);
+    return;
+  }
+
+  updateViewBySession(data.session);
+  if (data.session) {
+    await loadTools();
+    showAuthMessage("Sesión activa.");
+  } else {
+    showAuthMessage("Iniciá sesión para ver el inventario.");
+  }
+}
+
+initializeAuth();
+
+supabase.auth.onAuthStateChange(async (_, session) => {
+  updateViewBySession(session);
+
+  if (session) {
+    await loadTools();
+    showAuthMessage("Ingreso exitoso.");
+  } else {
+    showAuthMessage("Sesión cerrada. Iniciá sesión para continuar.");
+  }
+});
+
+loginForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const email = loginForm.email.value.trim();
+  const password = loginForm.password.value;
+
+  if (!email || !password) {
+    showAuthMessage("Completá correo y contraseña.", true);
+    return;
+  }
+
+  const { error } = await supabase.auth.signInWithPassword({ email, password });
+
+  if (error) {
+    showAuthMessage(`No se pudo iniciar sesión: ${error.message}`, true);
+    return;
+  }
+
+  loginForm.reset();
+});
+
+logoutBtn.addEventListener("click", async () => {
+  const { error } = await supabase.auth.signOut();
+  if (error) {
+    showAuthMessage(`No se pudo cerrar sesión: ${error.message}`, true);
+  }
+});
 
 /* FORM */
 form.addEventListener("submit", async (e) => {
