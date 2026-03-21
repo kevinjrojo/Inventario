@@ -11,100 +11,47 @@
   </head>
   <body>
     <h1>Inventario de elementos de medición</h1>
-    <section class="auth-container">
-      <form id="loginForm">
-        <h2>Ingresar</h2>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          placeholder="Correo"
-          required
-        />
-        <input
-          type="password"
-          id="password"
-          name="password"
-          placeholder="Contraseña"
-          required
-        />
-        <button type="submit">Iniciar sesión</button>
-      </form>
-      <p
-        id="authMessage"
-        class="auth-message"
-        role="status"
-        aria-live="polite"
-      ></p>
-    </section>
 
-    <section id="inventorySection" hidden>
-      <div class="session-bar">
-        <p id="sessionInfo"></p>
-        <button type="button" id="logoutBtn">Cerrar sesión</button>
-      </div>
-
-      <form id="toolForm">
-        <input
-          type="text"
-          id="name"
-          name="name"
-          placeholder="Nombre de la herramienta"
-          required
-        />
-        <input
-          type="text"
-          id="category"
-          name="category"
-          placeholder="Categoría"
-          required
-        />
-        <input type="text" id="codigo" name="codigo" placeholder="Código" />
-
-        <input
-          type="text"
-          id="day"
-          name="day"
-          placeholder="Fecha"
-          min="1"
-          required
-        />
-        <input
-          type="text"
-          id="ubication"
-          name="ubication"
-          placeholder="Ubicación"
-          required
-        />
-        <button type="submit">Agregar</button>
-        <button type="button" id="cancelEdit" hidden>Cancelar</button>
-      </form>
+    <form id="toolForm">
       <input
         type="text"
-        id="searchInput"
-        placeholder="Buscar instrumento por nombre..."
+        id="name"
+        placeholder="Nombre de la herramienta"
+        required
       />
-      <div class="top-bar">
-        <div class="download-actions">
-          <button type="button" id="downloadToolsBtn">Descargar CSV</button>
-          <button type="button" id="downloadWordBtn">Descargar Word</button>
-        </div>
+      <input type="text" id="category" placeholder="Categoría" required />
+      <input type="text" id="codigo" placeholder="Código" />
+
+      <input type="text" id="day" placeholder="Fecha" min="1" required />
+      <input type="text" id="ubication" placeholder="Ubicación" required />
+      <button type="submit">Agregar</button>
+      <button type="button" id="cancelEdit" hidden>Cancelar</button>
+    </form>
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Buscar instrumento por nombre..."
+    />
+    <div class="top-bar">
+      <div class="download-actions">
+        <button type="button" id="downloadToolsBtn">Descargar CSV</button>
+        <button type="button" id="downloadWordBtn">Descargar Word</button>
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Categoría</th>
-            <th>Código</th>
-            <th>Fecha</th>
-            <th>Ubicación</th>
-            <th>Editar o borrar</th>
-          </tr>
-        </thead>
-        <tbody id="tableBody"></tbody>
-      </table>
-    </section>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Categoría</th>
+          <th>Código</th>
+          <th>Fecha</th>
+          <th>Ubicación</th>
+          <th>Editar o borrar</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+
     <script type="module" src="./js/main.js"></script>
   </body>
 </html>
