@@ -3,6 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <title>Inventario de Herramientas</title>
+    <script type="module">
+      import { supabase } from "./js/supabaseClient.js";
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      if (!session) window.location.replace("./login.html");
+    </script>
     <link rel="stylesheet" href="./styles.css" />
     <link
       rel="stylesheet"

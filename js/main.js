@@ -125,6 +125,10 @@ downloadToolsBtn.addEventListener("click", () => {
     return;
   }
 
+  requireAuth();
+  document.body.style.visibility = "visible";
+  document.body.style.opacity = "1";
+
   const headers = ["Nombre", "Categoría", "Código", "Fecha", "Ubicación"];
 
   const escapeCsvValue = (value) => {
