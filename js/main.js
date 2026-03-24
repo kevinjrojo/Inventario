@@ -1,6 +1,7 @@
 import { getTools, addTool, updateTool, deleteTool } from "./toolsService.js";
 import { renderTable } from "./ui.js";
 import { filterTools } from "./searchTools.js";
+import { requireAuth, logout } from "./auth.js";
 
 const form = document.getElementById("toolForm");
 const tableBody = document.getElementById("tableBody");
@@ -8,6 +9,7 @@ const cancelBtn = document.getElementById("cancelEdit");
 const searchInput = document.getElementById("searchInput");
 const downloadToolsBtn = document.getElementById("downloadToolsBtn");
 const downloadWordBtn = document.getElementById("downloadWordBtn");
+const logoutBtn = document.getElementById("logoutBtn");
 
 let tools = [];
 let editId = null;
@@ -114,6 +116,8 @@ cancelBtn.addEventListener("click", () => {
     .querySelectorAll("tr.editing")
     .forEach((tr) => tr.classList.remove("editing"));
 });
+
+logoutBtn.addEventListener("click", () => logout());
 
 downloadToolsBtn.addEventListener("click", () => {
   if (!tools.length) {
