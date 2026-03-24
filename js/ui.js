@@ -6,11 +6,11 @@ export function renderTable(tools, tableBody) {
 
     row.innerHTML = `
       
-      <td>${tool.name}</td>
-      <td>${tool.category}</td>
-      <td>${tool.codigo || "-"}</td>
-      <td>${tool.day}</td>
-      <td>${tool.ubication || "-"}</td>
+       <td data-label="Nombre">${tool.name}</td>
+      <td data-label="Categoría">${tool.category}</td>
+      <td data-label="Código">${tool.codigo || "-"}</td>
+      <td data-label="Fecha">${tool.day}</td>
+      <td data-label="Ubicación">${tool.ubication || "-"}</td>
       <td>
         <button class="edit-btn" data-id="${tool.id}">
           <i class="fa-solid fa-pen"></i>
